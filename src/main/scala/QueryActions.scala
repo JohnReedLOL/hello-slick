@@ -3,6 +3,7 @@ import slick.driver.H2Driver.api._
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.trace.Pos
 
 // Demonstrates various ways of reading data
 object QueryActions extends App {
@@ -36,28 +37,28 @@ object QueryActions extends App {
       dict ++= Seq(1 -> "a", 2 -> "b", 3 -> "c", 4 -> "d", 5 -> "e"),
 
       upTo(3).result.map { r =>
-        println("Seq (Vector) of k/v pairs up to 3")
-        println("- " + r)
+        println( "Seq (Vector) of k/v pairs up to 3" + Pos() )
+        println("- " + r + Pos() )
       },
 
       upToSet(3).result.map { r =>
-        println("Set of k/v pairs up to 3")
-        println("- " + r)
+        println("Set of k/v pairs up to 3" + Pos() )
+        println("- " + r + Pos() )
       },
 
       dict.map(_.key).to[Array].result.map { r =>
-        println("All keys in an unboxed Array[Int]")
-        println("- " + r)
+        println("All keys in an unboxed Array[Int]" + Pos() )
+        println("- " + r + Pos() )
       },
 
       upTo(3).result.head.map { r =>
-        println("Only get the first result, failing if there is none")
-        println("- " + r)
+        println("Only get the first result, failing if there is none" + Pos() )
+        println("- " + r + Pos() )
       },
 
       upTo(3).result.headOption.map { r =>
-        println("Get the first result as an Option, or None")
-        println("- " + r)
+        println("Get the first result as an Option, or None" + Pos() )
+        println("- " + r + Pos() )
       }
 
     )), Duration.Inf)
@@ -66,9 +67,9 @@ object QueryActions extends App {
     // The action does not run until you consume the stream.
     val p = db.stream(upTo(3).result)
 
-    println("Stream k/v pairs up to 3 via Reactive Streams")
+    println("Stream k/v pairs up to 3 via Reactive Streams" + Pos() )
     Await.result(p.foreach { v =>
-      println("- " + v)
+      println("- " + v + Pos() )
     }, Duration.Inf)
 
   } finally db.close
