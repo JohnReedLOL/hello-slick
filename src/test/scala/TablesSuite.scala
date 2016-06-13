@@ -16,7 +16,7 @@ class TablesSuite extends FunSuite with BeforeAndAfter with ScalaFutures {
     db.run((suppliers.schema ++ coffees.schema).create).futureValue
   
   def insertSupplier(): Int =
-    db.run(suppliers += (101, "Acme, Inc.", "99 Market Street", "Groundsville", "CA", "95199")).futureValue
+    db.run(suppliers += Tuple6(101, "Acme, Inc.", "99 Market Street", "Groundsville", "CA", "95199")).futureValue
   
   before { db = Database.forConfig("h2mem1") }
   

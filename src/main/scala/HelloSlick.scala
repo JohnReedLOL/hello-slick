@@ -21,9 +21,9 @@ object HelloSlick extends App {
       (suppliers.schema ++ coffees.schema).create,
 
       // Insert some suppliers
-      suppliers += (101, "Acme, Inc.", "99 Market Street", "Groundsville", "CA", "95199"),
-      suppliers += ( 49, "Superior Coffee", "1 Party Place", "Mendocino", "CA", "95460"),
-      suppliers += (150, "The High Ground", "100 Coffee Lane", "Meadows", "CA", "93966")
+      suppliers += Tuple6(101, "Acme, Inc.", "99 Market Street", "Groundsville", "CA", "95199"),
+      suppliers += Tuple6( 49, "Superior Coffee", "1 Party Place", "Mendocino", "CA", "95460"),
+      suppliers += Tuple6(150, "The High Ground", "100 Coffee Lane", "Meadows", "CA", "93966")
     )
 
     val setupFuture: Future[Unit] = db.run(setupAction)
